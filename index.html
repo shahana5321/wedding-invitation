@@ -581,8 +581,8 @@
                             <div class="scratch-overlay">Scratch</div>
                         </div>
                     </div>
-                    <div class="venue-name">Koottumugham Juma Masjid</div>
-                    <a href="https://maps.google.com" target="_blank" class="location-btn">View Map Location</a>
+               <div class="venue-name">Koottumugham Juma Masjid</div>
+<a href="https://www.google.com/maps/search/?api=1&query=Koottumugham+Juma+Masjid" target="_blank" class="location-btn">View Map Location</a>
                 </div>
 
                 <div class="countdown-section">
@@ -613,7 +613,7 @@
                         </div>
                     </div>
                     <div class="venue-name">Community Hall, Sreekandapuram</div>
-                    <a href="https://maps.google.com" target="_blank" class="location-btn">Live Location</a>
+<a href="https://www.google.com/maps/search/?api=1&query=Community+Hall+Sreekandapuram" target="_blank" class="location-btn">Live Location</a>
                 </div>
 
                 <div class="section-card">
@@ -746,22 +746,15 @@
             }
         }
 
-        function handleRSVP(event) {
-            event.preventDefault();
-            
-            const name = document.getElementById('guestName').value;
-            const attendance = document.getElementById('attendanceStatus').value;
-            const count = document.getElementById('guestCount').value;
-            const eventType = document.getElementById('preferredEvent').value;
-
-            const myWhatsAppNumber = "918304874581"; 
-
-            const whatsappMessage = `*New RSVP Response - Wedding Invitation*%0A%0A*Name:* ${encodeURIComponent(name)}%0A*Status:* ${encodeURIComponent(attendance)}%0A*No. of Guests:* ${encodeURIComponent(count)}%0A*Event:* ${encodeURIComponent(eventType)}`;
-
-            const whatsappURL = `https://wa.me/${myWhatsAppNumber}?text=${whatsappMessage}`;
-            
-            window.open(whatsappURL, '_blank');
-        }
+       function handleRSVP(event) {
+    event.preventDefault();
+    
+    // ഗൂഗിൾ ഫോം ലിങ്ക്
+    const googleFormURL = "https://docs.google.com/forms/d/e/1FAIpQLSeEUTMQleUzfqFTaw_9oKsmDgAvmcXYVz1O0-R8kwWMdZezrQ/viewform?usp=header";
+    
+    // പുതിയ ടാബിൽ ഗൂഗിൾ ഫോം തുറക്കാൻ
+    window.open(googleFormURL, '_blank');
+}
 
         const nikkahDate = new Date("November 13, 2026 00:00:00").getTime();
 
