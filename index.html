@@ -48,7 +48,6 @@
             display: none;
         }
 
-        /* മ്യൂസിക് കൺട്രോൾ ബട്ടൺ സ്റ്റൈൽ */
         .music-control {
             position: fixed;
             top: 20px;
@@ -526,12 +525,10 @@
 </head>
 <body>
 
-    <!-- ബാക്ക്ഗ്രൗണ്ട് മ്യൂസിക് ഓഡിയോ ടാഗ് -->
     <audio id="bgMusic" loop>
         <source src="meri-zindagi-hai-tu.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- മ്യൂസിക് ഓൺ/ഓഫ് ചെയ്യാനുള്ള ഫ്ലോട്ടിംഗ് ബട്ടൺ -->
     <div class="music-control" id="musicControlBtn" onclick="toggleMusic()">
         <span class="music-icon" id="musicIcon">🎵</span>
     </div>
@@ -581,8 +578,8 @@
                             <div class="scratch-overlay">Scratch</div>
                         </div>
                     </div>
-               <div class="venue-name">Koottumugham Juma Masjid</div>
-<a href="https://www.google.com/maps/search/?api=1&query=Koottumugham+Juma+Masjid" target="_blank" class="location-btn">View Map Location</a>
+                    <div class="venue-name">Koottumugham Juma Masjid</div>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Koottumugham+Juma+Masjid" target="_blank" class="location-btn">View Map Location</a>
                 </div>
 
                 <div class="countdown-section">
@@ -613,7 +610,7 @@
                         </div>
                     </div>
                     <div class="venue-name">Community Hall, Sreekandapuram</div>
-<a href="https://www.google.com/maps/search/?api=1&query=Community+Hall+Sreekandapuram" target="_blank" class="location-btn">Live Location</a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Community+Hall+Sreekandapuram" target="_blank" class="location-btn">Live Location</a>
                 </div>
 
                 <div class="section-card">
@@ -653,37 +650,40 @@
                 <div class="section-card">
                     <div class="section-title">RSVP</div>
                     <div class="scratch-hint">✦ Kindly respond by October 30, 2026 ✦</div>
-                    <form class="rsvp-form" onsubmit="handleRSVP(event)">
+                    
+                    <form class="rsvp-form" action="https://formspree.io/f/xwlvoekz" method="POST">
                         
                         <label class="rsvp-label">Family / Member Name</label>
-                        <input type="text" id="guestName" class="rsvp-input" placeholder="Enter Full Name" required>
+                        <input type="text" name="name" class="rsvp-input" placeholder="Enter Full Name" required>
 
                         <label class="rsvp-label">Are you attending?</label>
-                        <select id="attendanceStatus" class="rsvp-select" required>
+                        <select name="attendance" id="attendanceStatus" class="rsvp-select" onchange="toggleRSVPFields()" required>
                             <option value="" disabled selected>Select Attendance</option>
                             <option value="Joyfully Attending">Joyfully Attending</option>
                             <option value="Regretfully Can't Attend">Regretfully Can't Attend</option>
                         </select>
 
-                        <label class="rsvp-label">Number of Guests Attending</label>
-                        <select id="guestCount" class="rsvp-select" required>
-                            <option value="" disabled selected>Select Number of People</option>
-                            <option value="1 Person">1 Person</option>
-                            <option value="2 Persons">2 Persons</option>
-                            <option value="3 Persons">3 Persons</option>
-                            <option value="4 Persons">4 Persons</option>
-                            <option value="5+ Persons">5 or more Persons</option>
-                        </select>
+                        <div id="additionalRSVPFields">
+                            <label class="rsvp-label" id="labelGuestCount">Number of Guests Attending</label>
+                            <select name="guest_count" id="guestCount" class="rsvp-select" required>
+                                <option value="" disabled selected>Select Number of People</option>
+                                <option value="1 Person">1 Person</option>
+                                <option value="2 Persons">2 Persons</option>
+                                <option value="3 Persons">3 Persons</option>
+                                <option value="4 Persons">4 Persons</option>
+                                <option value="5+ Persons">5 or more Persons</option>
+                            </select>
 
-                        <label class="rsvp-label">Attending Events</label>
-                        <select id="preferredEvent" class="rsvp-select" required>
-                            <option value="" disabled selected>Select Event</option>
-                            <option value="Nikkah Only">Nikkah Only</option>
-                            <option value="Reception Only">Reception Only</option>
-                            <option value="Both Events (Nikkah & Reception)">Both Events (Nikkah & Reception)</option>
-                        </select>
+                            <label class="rsvp-label" id="labelPreferredEvent" style="margin-top: 12px; display: block;">Attending Events</label>
+                            <select name="preferred_event" id="preferredEvent" class="rsvp-select" required style="margin-top: 6px;">
+                                <option value="" disabled selected>Select Event</option>
+                                <option value="Nikkah Only">Nikkah Only</option>
+                                <option value="Reception Only">Reception Only</option>
+                                <option value="Both Events (Nikkah & Reception)">Both Events (Nikkah & Reception)</option>
+                            </select>
+                        </div>
 
-                        <button type="submit" class="rsvp-btn">Send via WhatsApp</button>
+                        <button type="submit" class="rsvp-btn" style="margin-top: 15px;">Submit RSVP</button>
                     </form>
                 </div>
 
@@ -746,15 +746,24 @@
             }
         }
 
-       function handleRSVP(event) {
-    event.preventDefault();
-    
-    // ഗൂഗിൾ ഫോം ലിങ്ക്
-    const googleFormURL = "https://docs.google.com/forms/d/e/1FAIpQLSeEUTMQleUzfqFTaw_9oKsmDgAvmcXYVz1O0-R8kwWMdZezrQ/viewform?usp=header";
-    
-    // പുതിയ ടാബിൽ ഗൂഗിൾ ഫോം തുറക്കാൻ
-    window.open(googleFormURL, '_blank');
-}
+        function toggleRSVPFields() {
+            const status = document.getElementById('attendanceStatus').value;
+            const additionalFields = document.getElementById('additionalRSVPFields');
+            const guestCount = document.getElementById('guestCount');
+            const preferredEvent = document.getElementById('preferredEvent');
+
+            if (status === "Regretfully Can't Attend") {
+                additionalFields.style.display = 'none';
+                guestCount.removeAttribute('required');
+                preferredEvent.removeAttribute('required');
+                guestCount.value = "";
+                preferredEvent.value = "";
+            } else {
+                additionalFields.style.display = 'block';
+                guestCount.setAttribute('required', 'true');
+                preferredEvent.setAttribute('required', 'true');
+            }
+        }
 
         const nikkahDate = new Date("November 13, 2026 00:00:00").getTime();
 
